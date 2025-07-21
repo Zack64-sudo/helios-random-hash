@@ -69,9 +69,12 @@ npx ts-node scripts/extract-input.ts
 ### 6. Jadwalkan Eksekusi Otomatis
 Menjadwalkan eksekusi fungsi `recordRandomHash()` setiap 24 jam:
 ```bash
+nano scripts/schedule.ts
+change const contractAddress = "0xYourDeployAddress" with your deploy address
+
 npx hardhat run scripts/schedule.ts --network heliosTestnet
 ```
-> Sebelum running, ganti const contractAddress = "0xYourDeployedContractAddress" dengan address deploy mu tadi. Jika sukses, akan muncul log `CronCreated` pada explorer dan ID Cron akan tercetak di log terminal.
+> Jika sukses, akan muncul log `CronCreated` pada explorer dan ID Cron akan tercetak di log terminal.
 
 ---
 
