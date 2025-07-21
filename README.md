@@ -57,6 +57,7 @@ Jalankan perintah berikut untuk mendeploy `RandomHashRecorder`:
 ```bash
 npx hardhat run scripts/deploy.ts --network heliosTestnet
 ```
+> Jika Gagal tunggu 3-5 detik dan ulangi.
 
 ### 5. (Opsional) Lihat Exact Input JSON
 Untuk melihat ABI JSON yang akan digunakan dalam `createCron`, jalankan:
