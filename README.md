@@ -16,11 +16,14 @@ helios-random-hash/
 │   └── RandomHashRecorder.sol       # Kontrak utama
 │
 ├── scripts/
-│   ├── deploy.ts                    # Deploy kontrak
-│   └── schedule.ts                  # Jadwalkan eksekusi otomatis via Chronos
+│   ├── deploy.ts                    # Deploy kontrak ke testnet
+│   ├── schedule.ts                  # Jadwalkan eksekusi otomatis via Chronos
+│   └── extract-input.ts             # (Opsional) Ekstraksi exact input ABI JSON
 │
 ├── chronos.json                     # ABI Chronos precompile (0x...0830)
-├── hardhat.config.ts                # Konfigurasi Hardhat + jaringan Helios testnet
+├── hardhat.config.ts                # Konfigurasi jaringan dan compiler
+├── .env.example                     # Template file untuk .env
+├── .env                             # File environment (harus dibuat dari example)
 └── README.md                        # Dokumentasi proyek
 ```
 
@@ -29,60 +32,59 @@ helios-random-hash/
 ## 🚀 Cara Menjalankan
 
 ### 1. Clone & Install
+Clone repositori ini dan install dependency:
 ```bash
 git clone https://github.com/Zack64-sudo/helios-random-hash.git
 cd helios-random-hash
 npm install
-Next, configure your environment file. This will store your private key for deploying the contract.
-
-cp .env.example .env
-Now, open the new .env file and add your MetaMask private key.
 ```
 
-### 2. Compile
+### 2. Siapkan Environment
+Salin template `.env.example` menjadi `.env`:
+```bash
+cp .env.example .env
+```
+> 📝 Di dalam `.env` kamu harus menaruh private key testnet untuk akunmu.
+
+### 3. Compile Kontrak
+Kompilasi kontrak sebelum di-deploy:
 ```bash
 npx hardhat compile
 ```
 
-### 3. Deploy Kontrak
+### 4. Deploy Kontrak ke Helios Testnet
+Jalankan perintah berikut untuk mendepoy `RandomHashRecorder`:
 ```bash
 npx hardhat run scripts/deploy.ts --network heliosTestnet
 ```
 
-### 4. Schedule Eksekusi Otomatis
+### 5. (Opsional) Lihat Exact Input JSON
+Untuk melihat ABI JSON yang akan digunakan dalam `createCron`, jalankan:
+```bash
+npx ts-node scripts/extract-input.ts
+```
+> Ini akan mencetak `function recordRandomHash()` dalam bentuk JSON string untuk keperluan `createCron()`.
+
+### 6. Jadwalkan Eksekusi Otomatis
+Menjadwalkan eksekusi fungsi `recordRandomHash()` setiap 24 jam:
 ```bash
 npx hardhat run scripts/schedule.ts --network heliosTestnet
 ```
-
----
-
-## 🌐 Konfigurasi Jaringan
-
-Tambahkan ke `hardhat.config.ts`:
-
-```ts
-networks: {
-  heliosTestnet: {
-    url: "https://testnet1.helioschainlabs.org/",
-    chainId: 1115575601,
-    accounts: [PRIVATE_KEY] // ganti dengan private key testnet
-  }
-}
-```
+> Jika sukses, akan muncul log `CronCreated` pada explorer dan ID Cron akan tercetak di log terminal.
 
 ---
 
 ## 📦 Chronos Precompile
 
 - **Alamat:** `0x0000000000000000000000000000000000000830`
-- **Metode:** `createCron(address, string abi, string methodName, string[] params, uint64 freq, uint64 expBlock, uint64 gasLimit, uint256 maxGasPrice, uint256 deposit)`
+- **Metode utama:** `createCron(address, string abi, string methodName, string[] params, uint64 freq, uint64 expBlock, uint64 gasLimit, uint256 maxGasPrice, uint256 deposit)`
 
 ---
 
 ## 🔍 Explorer
 
-Lihat transaksi di:  
-[https://explorer.helioschainlabs.org](https://explorer.helioschainlabs.org)
+Lihat transaksi, kontrak, dan cron event di:  
+👉 [https://explorer.helioschainlabs.org](https://explorer.helioschainlabs.org)
 
 ---
 
