@@ -33,6 +33,10 @@ helios-random-hash/
 git clone https://github.com/Zack64-sudo/helios-random-hash.git
 cd helios-random-hash
 npm install
+Next, configure your environment file. This will store your private key for deploying the contract.
+
+cp .env.example .env
+Now, open the new .env file and add your MetaMask private key.
 ```
 
 ### 2. Compile
