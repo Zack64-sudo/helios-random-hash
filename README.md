@@ -53,7 +53,7 @@ npx hardhat compile
 ```
 
 ### 4. Deploy Kontrak ke Helios Testnet
-Jalankan perintah berikut untuk mendepoy `RandomHashRecorder`:
+Jalankan perintah berikut untuk mendeploy `RandomHashRecorder`:
 ```bash
 npx hardhat run scripts/deploy.ts --network heliosTestnet
 ```
