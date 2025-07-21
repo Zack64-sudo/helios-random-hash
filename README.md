@@ -70,7 +70,7 @@ Menjadwalkan eksekusi fungsi `recordRandomHash()` setiap 24 jam:
 ```bash
 npx hardhat run scripts/schedule.ts --network heliosTestnet
 ```
-> Jika sukses, akan muncul log `CronCreated` pada explorer dan ID Cron akan tercetak di log terminal.
+> Sebelum running, ganti const contractAddress = "0xYourDeployedContractAddress" dengan address deploy mu tadi. Jika sukses, akan muncul log `CronCreated` pada explorer dan ID Cron akan tercetak di log terminal.
 
 ---
 
