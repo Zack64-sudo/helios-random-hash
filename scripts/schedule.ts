@@ -3,7 +3,7 @@ import { parseUnits } from "@ethersproject/units";
 import chronosArtifact from "../chronos.json";
 
 async function main() {
-  const contractAddress = "0x4De93AcaEe3802d4825490a678aBfAD8b553b88A";
+  const contractAddress = "0xYourDeployedContractAddress";
   const chronosAddress = "0x0000000000000000000000000000000000000830";
 
   const [signer] = await ethers.getSigners();
